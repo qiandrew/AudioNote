@@ -1,17 +1,17 @@
 # P2PSocial
 
-#Project Summary
+Project Summary
 
-#One Sentence Description
+  One Sentence Description
 
-#Project Overview
+  Project Overview
 
-#Installation
+Installation
 
-#Prerequisites
+  Prerequisites
 
-#Installation Steps
+  Installation Steps
 
-#Functionality and Known Issues
+Functionality and Known Issues
 
-#License
+License
