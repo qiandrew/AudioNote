@@ -1,4 +1,4 @@
-# P2PSocial
+# AudioNote
 
 Project Summary
 
@@ -15,3 +15,7 @@ Installation
 Functionality and Known Issues
 
 License
+
+Resources
+AWS Sagemaker: https://aws.amazon.com/sagemaker/
+Mozilla Common Voice: https://voice.mozilla.org/en
