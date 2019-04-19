@@ -1,9 +1,9 @@
 package audionote;
 
-import java.io.File;
-import java.io.IOException;
-import java.util;
-import org.json.*;
+//import java.io.File;
+//import java.io.IOException;
+//import java.util;
+//import org.json.*;
 //public class Parser{
 
 //}
@@ -26,7 +26,7 @@ public class AnalysisPackage{
         return "-";
     }//Formats into all lowercase, no special characters.
 
-    private Arraylist<Pair<String, Integer>> wordListNumSort;
-    private ArrayList<Pair<String, Integer>> wordListAlphaSort;
+    //private Arraylist<Pair<String, Integer>> wordListNumSort;
+    //private ArrayList<Pair<String, Integer>> wordListAlphaSort;
     private int wordNum;
 }
