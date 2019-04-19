@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util;
 import org.json.*;
-public class Parser{
+//public class Parser{
 
-}
+//}
 
 public class AnalysisPackage{
     public AnalysisPackage(){
