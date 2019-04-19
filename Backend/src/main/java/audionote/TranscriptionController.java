@@ -22,7 +22,10 @@ public class TranscriptionController {
     the audio variable.
     */
     @GetMapping("/transcription") // Maps this method to the path ".../transcription"
-    public String transcribeAudio(@RequestParam(value="audio", defaultValue="No audio.") String audio) {
-        return "{\"transcription\":" + audio + "}"; // We return a basic JSON
+    public String transcribeAudio(@RequestParam(value="audio", defaultValue="No audio.") String audio, @RequestParam(value="token") String token) {
+        if (token.equals("test"))    
+            return "{\"transcription\":" + audio + "}"; // We return a basic JSON  
+        else
+            return "UNAUTHORIZED!";              
     }
 }
