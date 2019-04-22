@@ -1,22 +1,22 @@
 package audionote;
 
-//import java.io.File;
-//import java.io.IOException;
-//import java.util;
-//import org.json.*;
-//public class Parser{
+import java.io.File;
+import java.io.IOException;
+import java.util;
+import org.json.*;
 
-//}
 
-public class AnalysisPackage{
-    public AnalysisPackage(){
+
+public class Analysis{
+    public Analysis(){
         wordNum = 0;
     }
-    public AnalysisPackage(String str){
+    public Analysis(String str){
         s = str;
         sf = format(str);
         addWords(sf);
     }
+
     public void incrementWord(String str) {
         //for(int i = 0; i < )
         return;

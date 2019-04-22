@@ -1,0 +1,4 @@
+package audionote;
+
+
+class TranscriptionWord
