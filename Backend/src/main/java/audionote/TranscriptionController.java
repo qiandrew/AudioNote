@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 @RestController // This tells Spring that the controller contains actions accessible by URL.
 public class TranscriptionController {
@@ -20,10 +22,16 @@ public class TranscriptionController {
     the audio variable.
     */
     @GetMapping("/transcription") // Maps this method to the path ".../transcription"
-    public String transcribeAudio(@RequestParam(value="audio", defaultValue="No audio.") String audio, @RequestHeader(value="Token") String Token) {
-        if (Token.equals("test"))    
-            return "{\"transcription\":" + audio + "}"; // We return a basic JSON  
-        else
-            return "UNAUTHORIZED!";              
+    public ResponseEntity<String> transcribeAudio(@RequestParam(value="audio", defaultValue="No audio.") String audio, @RequestHeader(value="Token") String Token) {
+        String response;
+        if (Token.equals("test")) {
+            //return "{\"transcription\":" + audio + "}"; 
+            response = "{\"transcription\":" + audio + "}";
+            return new ResponseEntity<String>(response, HttpStatus.OK); // We return an OK status code along with a basic JSON 
+        }   
+        else {
+            response = "UNAUTHORIZED!";              
+            return new ResponseEntity<String>(response, HttpStatus.UNAUTHORIZED); // returns an UNAUTHORIZED status code along with a message
+        }
     }
 }
