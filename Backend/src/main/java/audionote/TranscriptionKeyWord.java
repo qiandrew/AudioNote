@@ -10,11 +10,11 @@ public class TranscriptionKeyWord{
         firstTime = -1;
     }
 
-    public void addOccurence(TranscriptionWord tw){
+    public void addOccurence(double startTime, double endTime, double confidence){
         if(firstTime == -1){
-            firstTime = tw.getStartTime();
+            firstTime = startTime;
         }
-        occurences.add(tw);
+        occurences.add(TranscriptionWord(word,confidence,startTime, endTime));
         increment();
     }
 
