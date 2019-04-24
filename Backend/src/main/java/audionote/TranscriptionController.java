@@ -25,7 +25,6 @@ public class TranscriptionController {
     public ResponseEntity<String> transcribeAudio(@RequestParam(value="audio", defaultValue="No audio.") String audio, @RequestHeader(value="Token") String Token) {
         String response;
         if (Token.equals("test")) {
-            //return "{\"transcription\":" + audio + "}"; 
             response = "{\"transcription\":" + audio + "}";
             return new ResponseEntity<String>(response, HttpStatus.OK); // We return an OK status code along with a basic JSON 
         }   
