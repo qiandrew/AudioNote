@@ -1,24 +1,24 @@
 package audionote;
 import java.util.*;
-public class TranscriptionKeyWord{
+public class KeyWord{
 
     private String word;
     private int frequency;
-    private ArrayList<TranscriptionWord> occurences;
+    private ArrayList<Word> occurences;
 
     //Words should be added sequentially
-    public void TranscriptionKeyWord(String str){
+    public void keyWord(String str){
         word = str;
     }
 
-    public void addOccurence(TranscriptionWord tw){
-        occurences.add(tw);
+    public void addOccurence(Word w){
+        occurences.add(w);
         increment();
     }
 
     public void addOccurence(double startTime, double endTime, double confidence){
-        TranscriptionWord tw  = new TranscriptionWord(word, confidence, startTime, endTime);
-        addOccurence(tw);
+        Word w  = new Word(word, confidence, startTime, endTime);
+        addOccurence(w);
     }
 
     public String getWord(){

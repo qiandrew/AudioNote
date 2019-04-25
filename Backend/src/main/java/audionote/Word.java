@@ -1,5 +1,5 @@
 package audionote;
-public class TranscriptionWord{
+public class Word{
 
     private String word;
     private double confidence;
@@ -8,7 +8,7 @@ public class TranscriptionWord{
     private double totalTime;
 
 
-    public TranscriptionWord(String str, double confid, double start, double end){
+    public Word(String str, double confid, double start, double end){
         word = str;
         confidence = confid;
         startTime = start;
