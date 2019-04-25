@@ -7,7 +7,8 @@ public class TranscriptionWord{
     private double endTime;
     private double totalTime;
 
-    public void TranscriptionWord(String str, double confid, double start, double end){
+
+    public TranscriptionWord(String str, double confid, double start, double end){
         word = str;
         confidence = confid;
         startTime = start;
