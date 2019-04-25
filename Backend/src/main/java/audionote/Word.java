@@ -13,7 +13,7 @@ public class Word{
         confidence = confid;
         startTime = start;
         endTime = end;
-        totalTime = startTime - endTime;
+        totalTime = endTime - startTime;
     }
 
     public String getWord() {
