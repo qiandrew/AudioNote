@@ -8,9 +8,9 @@ public class WordTest{
     public void testWord1() {
         Word w = new Word("apple", 1, 0, 1);
         assertEquals("error in word:", "apple", w.getWord());
-        assertEquals("error in confidence:", 1, w.getConfidence());
-        assertEquals("error in start:", 0, w.getStartTime());
-        assertEquals("error in end:", 1, w.getEndTime());
-        assertEquals("error in total:", 1, w.getTotalTime());
+        assertEquals(w.getConfidence(), 1, 0.0001);
+        assertEquals(w.getStartTime(), 0, 0.0001);
+        assertEquals(w.getEndTime(), 1, 0.0001);
+        assertEquals(w.getTotalTime(), 1, 0.0001);
     }
 }
