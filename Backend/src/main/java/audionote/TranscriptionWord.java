@@ -1,16 +1,13 @@
-
+package audionote;
 public class TranscriptionWord{
-    public void TranscriptionWord(){
-        word = "";
-        confidence = 1;
-        startTime = 0;
-        endTime = 0;
-        totalTime = 0;
-    }
-    public void TrasncriptionWord(){
 
-    }
-    public void TrascriptionWord(String str, double confid, double start, double end){
+    private String word;
+    private double confidence;
+    private double startTime;
+    private double endTime;
+    private double totalTime;
+
+    public void TranscriptionWord(String str, double confid, double start, double end){
         word = str;
         confidence = confid;
         startTime = start;
@@ -18,29 +15,24 @@ public class TranscriptionWord{
         totalTime = startTime - endTime;
     }
 
-    public static String getWord(){
+    public String getWord() {
         return word;
     }
 
-    public static double getConfidence(){
+    public double getConfidence() {
         return confidence;
     }
 
-    public static double getStartTime(){
+    public double getStartTime() {
         return startTime;
     }
 
-    public static double getEndTime(){
+    public double getEndTime() {
         return endTime;
     }
 
-    public static double getTotalTime(){
+    public double getTotalTime() {
         return totalTime;
     }
 
-    private String word;
-    private double confidence;
-    private double startTime;
-    private double endTime;
-    private double totalTime;
 }

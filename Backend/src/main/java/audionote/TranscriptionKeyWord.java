@@ -1,50 +1,45 @@
-import TrancriptionWord.java;
+package audionote;
+import java.util.*;
 public class TranscriptionKeyWord{
-    //Words should be added sequentially
-    public void TranscriptionKeyWord(){
-        firstTime = -1;
-    }
 
+    private String word;
+    private int frequency;
+    private ArrayList<TranscriptionWord> occurences;
+
+    //Words should be added sequentially
     public void TranscriptionKeyWord(String str){
         word = str;
-        firstTime = -1;
     }
 
-    public void addOccurence(double startTime, double endTime, double confidence){
-        if(firstTime == -1){
-            firstTime = startTime;
-        }
-        occurences.add(TranscriptionWord(word,confidence,startTime, endTime));
+    public void addOccurence(TranscriptionWord tw){
+        occurences.add(tw);
         increment();
     }
 
-    public void setCommonWord(boolean val){
-        commonWord = val;
+    public void addOccurence(double startTime, double endTime, double confidence){
+        TranscriptionWord tw  = new TranscriptionWord(word, confidence, startTime, endTime);
+        addOccurence(tw);
     }
 
-    public static boolean getCommonWord(){
-        return commonWord;
-    }
-
-    public static String getWord(){
+    public String getWord(){
         return word;
     }
 
-    public static int getFrequency(){
+    public int getFrequency(){
         return frequency;
     }
 
-    public static double getFirstTime(){
-        return firstTime();
+    public double getFirstTime(){
+        if(frequency == 0){
+            return occurences.get(0).getStartTime();
+        }
+        else{
+            return 0;
+        }
     }
 
     private void increment(){
         frequency++;
     }
 
-    private boolean commonWord;
-    private String word;
-    private int frequency;
-    private ArrayList<TranscriptionWord> occurences;
-    private double firstTime;
 }
