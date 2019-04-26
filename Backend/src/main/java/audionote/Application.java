@@ -1,5 +1,7 @@
 package audionote;
 
+import com.amazonaws.services.s3.transfer.Upload;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,5 +13,7 @@ public class Application {
     public static void main(String[] args) {
         // Start Spring application
         SpringApplication.run(Application.class, args);
+
+        UploadFile.upload();
     }
 }
