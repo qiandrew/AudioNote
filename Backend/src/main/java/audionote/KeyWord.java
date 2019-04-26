@@ -2,9 +2,9 @@ package audionote;
 import java.util.*;
 public class KeyWord{
 
-    private String word;
-    private int frequency;
-    private ArrayList<Word> occurences;
+    private String word = "";
+    private int frequency = 0;
+    private ArrayList<Word> occurences = new ArrayList<Word>();
 
     //Words should be added sequentially
     public KeyWord(String str){
@@ -17,8 +17,7 @@ public class KeyWord{
     }
 
     public void addOccurence(double startTime, double endTime, double confidence){
-        Word w  = new Word(word, confidence, startTime, endTime);
-        addOccurence(w);
+        addOccurence(new Word(word, confidence, startTime, endTime));
     }
 
     public String getWord(){
@@ -30,7 +29,7 @@ public class KeyWord{
     }
 
     public double getFirstTime(){
-        if(frequency == 0){
+        if(frequency != 0){
             return occurences.get(0).getStartTime();
         }
         else{

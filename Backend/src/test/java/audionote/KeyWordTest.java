@@ -14,13 +14,13 @@ public class KeyWordTest{
         tw.addOccurence(w1);
         assertEquals("error in KeyWord:", "apple", tw.getWord());
         assertEquals(tw.getFrequency(), 3);
-        assertEquals(tw.getFirstTime(), 0);
+        assertEquals(tw.getFirstTime(), 0, 0.001);
     }
     @Test
     public void testKeyWord2() {
         KeyWord tw = new KeyWord("ooga");
         assertEquals("error in KeyWord:", "ooga", tw.getWord());
         assertEquals(tw.getFrequency(), 0);
-        assertEquals(tw.getFirstTime(), 0);
+        assertEquals(tw.getFirstTime(), 0, 0.001);
     }
 }

@@ -1,11 +1,11 @@
 package audionote;
 public class Word{
 
-    private String word;
-    private double confidence;
-    private double startTime;
-    private double endTime;
-    private double totalTime;
+    private String word = "";
+    private double confidence = 0;
+    private double startTime = 0;
+    private double endTime = 0;
+    private double totalTime = 0;
 
 
     public Word(String str, double confid, double start, double end){
