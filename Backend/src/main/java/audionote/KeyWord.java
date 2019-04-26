@@ -18,7 +18,8 @@ public class KeyWord{
 
     public void addOccurence(double startTime, double endTime, double confidence){
         Word w  = new Word(word, confidence, startTime, endTime);
-        addOccurence(w);
+        occurences.add(w);
+        increment();
     }
 
     public String getWord(){
