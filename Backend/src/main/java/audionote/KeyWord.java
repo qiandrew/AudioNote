@@ -7,7 +7,7 @@ public class KeyWord{
     private ArrayList<Word> occurences;
 
     //Words should be added sequentially
-    public void keyWord(String str){
+    public KeyWord(String str){
         word = str;
     }
 
