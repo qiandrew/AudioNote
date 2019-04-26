@@ -16,12 +16,10 @@ public class KeyWord{
         increment();
     }
 
-    /*public void addOccurence(double startTime, double endTime, double confidence){
+    public void addOccurence(double startTime, double endTime, double confidence){
         Word w  = new Word(word, confidence, startTime, endTime);
-        occurences.add(w);
-        increment();
+        addOccurence(w);
     }
-     */
 
     public String getWord(){
         return word;
