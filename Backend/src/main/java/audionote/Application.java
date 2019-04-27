@@ -14,7 +14,8 @@ public class Application {
         // Start Spring application
         SpringApplication.run(Application.class, args);
 
-        StartTranscribe.startTranscribe();
+        //StartTranscribe.startTranscribe();
         //UploadFile.upload();
+        //GetTranscription.getResult();
     }
 }
