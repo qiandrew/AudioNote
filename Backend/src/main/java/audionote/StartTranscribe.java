@@ -15,7 +15,7 @@ class StartTranscribe {
         String language_code = "en-US";
         String s3_url = "s3://audionoteucsb/samplefile.mp3";
         String media_format = "mp3";
-        String job_name = "sampleaudio";
+        String job_name = "samplefile01";
 
         // create a Media object for this file
         Media this_file = new Media();
