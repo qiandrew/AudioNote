@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
+//import org.springframework.beans.factory.annotation.Value;
+
 @RestController // This tells Spring that the controller contains actions accessible by URL.
 public class TranscriptionController {
     
@@ -24,6 +26,9 @@ public class TranscriptionController {
     @GetMapping("/transcription") // Maps this method to the path ".../transcription"
     public ResponseEntity<String> transcribeAudio(@RequestParam(value="audio", defaultValue="No audio.") String audio, @RequestHeader(value="Token") String Token) {
         String response;
+        // String token = System.getenv("SECRET_ACCESS_KEY");
+        // @Value("${TOKEN}")
+        // private String token;
         if (Token.equals("test")) {
             response = "{\"transcription\":" + audio + "}";
             return new ResponseEntity<String>(response, HttpStatus.OK); // We return an OK status code along with a basic JSON 
