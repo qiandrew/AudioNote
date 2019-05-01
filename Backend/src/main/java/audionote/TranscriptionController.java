@@ -45,6 +45,7 @@ public class TranscriptionController {
         // Try getting the file
         try {
             File converted = convertMultipartFileToNormalFile(audioFile);
+
             String response = String.format("{ transcription: \"Uploading %s\" }", converted.getName());
             return new ResponseEntity<String>(response, HttpStatus.OK);
         } catch (Exception exception) {
