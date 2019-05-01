@@ -22,6 +22,7 @@ class UploadFile {
             TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
             Upload upload = tm.upload(bucket_name,key_name,this_file);
             upload.waitForCompletion();
+            System.out.println("File uploaded!");
             tm.shutdownNow();
         }   catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());

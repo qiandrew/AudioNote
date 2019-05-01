@@ -17,8 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 public class TranscriptionController {
 
     // Get token from our plist file
-    @Value("${app.token}")
-    private String token;
 
     /*
      * This function is called when a GET request is sent to the URL
@@ -38,14 +36,13 @@ public class TranscriptionController {
     public ResponseEntity<String> transcribeAudio(@RequestPart(value = "audio") MultipartFile audioFile, @RequestHeader(value = "Token") String token) {
 
         // Check for token
-        if (!token.equals(this.token)) {
+        if (!token.equals("1234")) {
             return new ResponseEntity<String>("UNAUTHORIZED!", HttpStatus.UNAUTHORIZED); // returns an UNAUTHORIZED status code
         }
 
         // Try getting the file
         try {
             File converted = convertMultipartFileToNormalFile(audioFile);
-            UploadFile.upload(converted);
             String response = String.format("{ File %s is uploaded! }", converted.getName());
             return new ResponseEntity<String>(response, HttpStatus.OK);
         } catch (Exception exception) {
