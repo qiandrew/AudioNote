@@ -1,5 +1,7 @@
 package audionote;
 
+import java.io.File;
+
 import com.amazonaws.services.s3.transfer.Upload;
 
 import org.springframework.boot.SpringApplication;
@@ -14,8 +16,17 @@ public class Application {
         // Start Spring application
         SpringApplication.run(Application.class, args);
 
-        //StartTranscribe.startTranscribe();
-        //UploadFile.upload();
+        // file_path and key_name change depending on the file
+        String bucket_name = "audionoteucsb";
+        String file_path = "/Users/shihengwang/Desktop/samplefile.mp3";
+        String key_name = "samplefile.mp3";
+
+        // create a File object to upload the file
+        // or we can use a url instead of the pathname to do this
+        File this_file = new File(file_path);
+        
+        UploadFile.upload(this_file);
+        StartTranscribe.startTranscribe();
         //GetTranscription.getResult();
     }
 }
