@@ -7,7 +7,6 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.transfer.Upload;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
-import com.amazonaws.services.s3.transfer.Upload;
 import java.io.File;
 import java.nio.file.Paths;
 
@@ -23,7 +22,6 @@ class UploadFile {
             TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
             Upload upload = tm.upload(bucket_name,key_name,this_file);
             upload.waitForCompletion();
-            System.out.println("Down!");
             tm.shutdownNow();
         }   catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
