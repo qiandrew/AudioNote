@@ -28,7 +28,9 @@ public class Application {
         File this_file = new File(file_path);
         
         UploadFile.upload(this_file);
-        StartTranscribe.startTranscribe();
+
+        String job_name = "Sample FIle";
+        StartTranscribe.startTranscribe(job_name);
         //GetTranscription.getResult();
     }
 }

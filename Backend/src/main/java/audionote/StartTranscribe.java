@@ -8,14 +8,13 @@ import com.amazonaws.services.transcribe.model.Media;
 import com.amazonaws.AmazonServiceException;
 
 class StartTranscribe {
-    public static void startTranscribe() {
+    public static void startTranscribe(String job_name) {
         // keys for Transcription job
         // s3_url, media_format change depending on the file
         // job_name changes depending on user and time?
         String language_code = "en-US";
         String s3_url = "s3://audionoteucsb/samplefile.mp3";
         String media_format = "mp3";
-        String job_name = "samplefileforDEMO";
 
         // create a Media object for this file
         Media this_file = new Media();
