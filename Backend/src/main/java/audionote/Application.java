@@ -22,6 +22,7 @@ public class Application {
         String bucket_name = "audionoteucsb";
         String file_path = "/Users/shihengwang/Desktop/samplefile.mp3";
         String key_name = "samplefile.mp3";
+        String media_format = "mp3";
 
         // create a File object to upload the file
         // or we can use a url instead of the pathname to do this
@@ -29,8 +30,8 @@ public class Application {
         
         UploadFile.upload(this_file);
 
-        String job_name = "Sample FIle";
-        StartTranscribe.startTranscribe(job_name);
-        //GetTranscription.getResult();
+        String job_name = "samplefIle299109823759";
+        StartTranscribe.startTranscribe(job_name,media_format);
+        GetTranscription.getResult(job_name);
     }
 }
