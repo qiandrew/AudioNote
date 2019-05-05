@@ -1,25 +1,27 @@
 package audionote;
 
 import com.amazonaws.services.transcribe.AmazonTranscribe;
-import com.amazonaws.services.transcribe.AmazonTranscribeClient;
+import com.amazonaws.services.transcribe.AmazonTranscribeClientBuilder;
 import com.amazonaws.services.transcribe.model.StartTranscriptionJobRequest;
 import com.amazonaws.services.transcribe.model.Media;
 
 import java.util.Random;
 
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
 
 class StartTranscribe {
-    public static void startTranscribe() {
+    public static void startTranscribe(String file_name) {
         // keys for Transcription job
         // s3_url, media_format change depending on the file
         // job_name changes depending on user and time?
         String language_code = "en-US";
-        String s3_url = "s3://audionoteucsb/samplefile.mp3";
+
+        // Use default media format
         String media_format = "mp3";
+
+        // Create random job name
         String job_name = "job_" + generateRandomString();
+        String s3_url = "s3://" + System.getenv("AWS_BUCKET_NAME") + "/" + file_name; // ex: s3://audionoteucsb/samplefile.mp3
 
         // create a Media object for this file
         Media this_file = new Media();
@@ -32,20 +34,15 @@ class StartTranscribe {
         transcription_request.setTranscriptionJobName(job_name);
         transcription_request.setMedia(this_file);
 
-
-        System.out.format("Start transcription job %s ...\n", job_name);
-        BasicAWSCredentials creds = new BasicAWSCredentials("AKIAYO3M5WMIVYVDX7EF", "Mp6oRNrC6Bl/QcM9ywECHlCfgkUNcnO0CK0LwIe6");
-        final AmazonTranscribe aws_transcribe = AmazonTranscribeClient.builder().withRegion("us-west-2")
-        .withCredentials(new AWSStaticCredentialsProvider(creds))
-        .build();
-        
+        System.out.format("Start transcription job \'%s\' on file \'%s\'...\n", job_name, s3_url);
+        final AmazonTranscribe aws_transcribe = AmazonTranscribeClientBuilder.defaultClient();
         try {
             aws_transcribe.startTranscriptionJob(transcription_request);
         } catch (AmazonServiceException e){
             System.err.println("Aws erroor" + e.getErrorMessage());
             System.exit(1);
         }
-        System.out.println("Uploaded!");
+        System.out.format("Started transcription job: %s\n", job_name);
     }
 
     private static String generateRandomString() {

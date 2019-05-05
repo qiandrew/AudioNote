@@ -10,9 +10,8 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 
 class GetTranscription {
-    public static void getResult() {
+    public static void getResult(String job_name) {
         // value for request
-        String job_name = "samplefile01";
 
         // create a new request and set the value
         GetTranscriptionJobRequest this_request = new GetTranscriptionJobRequest();

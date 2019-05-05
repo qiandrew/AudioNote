@@ -11,14 +11,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.amazonaws.services.s3.transfer.Upload;
 
 @RestController // This tells Spring that the controller contains actions accessible by URL.
 public class TranscriptionController {
 
-    // Get token from our plist file
-    @Value("${app.token}")
-    private String token;
+    // Get token from environmental variable. See Github for more info.
+    private String token = System.getenv("AUDIONOTE_TOKEN");
 
     /*
      * This function is called when a GET request is sent to the URL
@@ -44,9 +43,20 @@ public class TranscriptionController {
 
         // Try getting the file
         try {
+
+            // Get file
             File converted = convertMultipartFileToNormalFile(audioFile);
+
+            // Upload to s3
+            UploadFile.upload(converted, true);
+
+            // Start transcription
+            StartTranscribe.startTranscribe(converted.getName());
+
+            // Send response
             String response = String.format("{ File %s is uploaded! }", converted.getName());
             return new ResponseEntity<String>(response, HttpStatus.OK);
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return new ResponseEntity<String>("Invalid file", HttpStatus.BAD_REQUEST);

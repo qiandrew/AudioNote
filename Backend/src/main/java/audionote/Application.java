@@ -14,18 +14,29 @@ public class Application {
     // starts up.
     // All we have to do is start Spring.
     public static void main(String[] args) throws AmazonClientException, InterruptedException {
+
         // Start Spring application
         SpringApplication.run(Application.class, args);
 
-        // file_path and key_name change depending on the file
-        String file_path = "transcribe-sample.dac1d22492611d998262c8c856b98a74180a1a8f.mp3";
+        // Uncomment to run a test transcription from a local file
+        // runTestTranscription("transcribe-sample.mp3");
+    }
 
-        // create a File object to upload the file
-        // or we can use a url instead of the pathname to do this
+    private static void runTestTranscription(String file_path) {
+
+        // Print test
+        System.out.println("Running test transcription...");
+
+        // Create an upload file
         File this_file = new File(file_path);
-        
-        UploadFile.upload(this_file);
-        StartTranscribe.startTranscribe();
-        //GetTranscription.getResult();
+        try {
+            UploadFile.upload(this_file, false);
+        } catch (InterruptedException ex) {
+            System.out.println("Test transcription did fail");
+        }
+
+        // Transcribe
+        StartTranscribe.startTranscribe(this_file.getName());
+
     }
 }
