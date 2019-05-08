@@ -2,6 +2,7 @@ package audionote;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+import audionote.sum;
 
 public class sumTest{
     @Test
