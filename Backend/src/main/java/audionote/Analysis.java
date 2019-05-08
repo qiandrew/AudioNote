@@ -4,12 +4,21 @@ import java.util.*;
 public class Analysis{
     private ArrayList<Word> input = new ArrayList<Word>();
     private ArrayList<KeyWord> order = new ArrayList<KeyWord>();
+    private ArrayList<KeyWord> mostCommonWords = new ArrayList<KeyWord>();
 
     public Analysis(ArrayList<Word> w){
         input = w;
         for(int i = 0; i < w.size(); i++){
             addWord(input.get(i));
         }
+        int s = 100;
+        if(order.size()<100){
+            s = order.size();
+        }
+        for(int i = 0; i < s; i++){
+            mostCommonWords.add(order.get(i));
+        }
+
     }
 
     public ArrayList<KeyWord> getList(){
