@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_label="Record audio"
-                app:fab_size="mini"
+                app:fab_size="normal"
                 android:src="@drawable/record"/>
 
             <com.github.clans.fab.FloatingActionButton
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_label="Upload audio"
-                app:fab_size="mini"
+                app:fab_size="normal"
                 android:src="@drawable/upload"/>
 
 
