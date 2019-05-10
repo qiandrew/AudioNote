@@ -1,9 +1,10 @@
 package com.example.audionote;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.github.clans.fab.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
@@ -23,6 +24,7 @@ import com.example.audionote.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +38,18 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+        FloatingActionButton fab_record = findViewById(R.id.fab_record);
+        fab_record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRecordActivity();
+            }
+        });
 
+    }
 
-
-
-
-//
-
+    public void openRecordActivity() {
+        Intent intent = new Intent(this, RecordActivity.class);
+        startActivity(intent);
     }
 }

@@ -70,5 +70,6 @@
 
         </com.github.clans.fab.FloatingActionMenu>
     </RelativeLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
