@@ -13,16 +13,16 @@ public class Transcription{
         JSONArray ja = (JSONArray) obj.get("items");
         Iterator i = ja.iterator();
         while(i.hasNext()){
-            i = i.next();
-            JSONArray ja2 = (JSONArray) i.get("alternatives");
-            JSONObject prim = (JSONObject) ja2.getJsonObject(0);
-            transcript.add(new Word(prim.getString("content"), Double.parseDouble(prim.getString("confidence")),Double.parseDouble(i.getString("start_time")),Double.parseDouble(i.getString("end_time"))));
+            JSONObject i2 = (JSONObject) i.next();
+            JSONArray ja2 = (JSONArray) i2.get("alternatives");
+            JSONObject prim = (JSONObject) ja2.getJSONObject(0);
+            transcript.add(new Word(prim.getString("content"), Double.parseDouble(prim.getString("confidence")),Double.parseDouble(i2.getString("start_time")),Double.parseDouble(i2.getString("end_time"))));
         }
         Analysis a = new Analysis(transcript);
         kw = a.getList();
     }
 
     public ArrayList<KeyWord> kw(){
-        retrun kw;
+        return kw;
     }
 }
