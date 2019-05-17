@@ -141,13 +141,13 @@ public class RecordActivity extends AppCompatActivity {
         //button to upload file
         btn_upload.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                upload();
+                String filePath = pathSaveInDevice;
+                upload(filePath);
             }
         });
     }
 
-    public void upload() {
-        String filePath = ""; // change the path here
+    public void upload(String filePath) {
         SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
