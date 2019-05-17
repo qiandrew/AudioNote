@@ -10,16 +10,20 @@ public class Transcription{
     private ArrayList<KeyWord> kw = new ArrayList<KeyWord>();
 
     public Transcription(String s){
-        str = s;
-        JsonElement jElement = new JsonParser().parse(str);
+        JsonElement jElement = new JsonParser().parse(s);
         JsonObject jObject = jElement.getAsJsonObject();
         JsonObject results = jObject.getAsJsonObject("results");
+        JsonArray transcripts = results.getAsJsonArray("transcripts");
+        str = transcripts.get(0).getAsJsonObject().get("transcript").getAsString();
         JsonArray items = results.getAsJsonArray("items");
         for(int i = 0; i < items.size(); i++){
             JsonObject iter = items.get(i).getAsJsonObject();
+            if(iter.get("type").getAsString().equals("punctuation")){
+                continue;
+            }
             JsonArray alternatives = iter.getAsJsonArray("alternatives");
             JsonObject firstAlt = alternatives.get(0).getAsJsonObject();
-            transcript.add(new Word(firstAlt.get("content").getAsString(), firstAlt.get("confidence").getAsDouble(), iter.get("start_time").getAsDouble(), iter.get("end_time").getAsDouble()));
+            transcript.add(new Word(firstAlt.get("content").getAsString(), Double.parseDouble(firstAlt.get("confidence").getAsString()), Double.parseDouble(iter.get("start_time").getAsString()), Double.parseDouble(iter.get("end_time").getAsString())));
         }
         Analysis a = new Analysis(transcript);
         kw = a.getList();
@@ -50,6 +54,11 @@ public class Transcription{
     public ArrayList<KeyWord> kw(){
         return kw;
     }
+
+    public String getStr(){
+        return str;
+    }
+
     public ArrayList<KeyWord> topWords(){
         if(kw.size() < 50){
             return kw;
