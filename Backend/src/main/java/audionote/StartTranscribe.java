@@ -10,18 +10,15 @@ import java.util.Random;
 import com.amazonaws.AmazonServiceException;
 
 class StartTranscribe {
-    public static void startTranscribe(String file_name) {
-        // keys for Transcription job
-        // s3_url, media_format change depending on the file
-        // job_name changes depending on user and time?
-        String language_code = "en-US";
+    public static String startTranscribe(String file_name) {
 
-        // Use default media format
-        String media_format = "mp3";
+        // Get bucket for output
+        String awsBucketName = System.getenv("AWS_BUCKET_NAME");
 
         // Create random job name
         String job_name = "job_" + generateRandomString();
         String s3_url = "s3://" + System.getenv("AWS_BUCKET_NAME") + "/" + file_name; // ex: s3://audionoteucsb/samplefile.mp3
+        System.out.println("url: " + s3_url);
 
         // create a Media object for this file
         Media this_file = new Media();
@@ -29,20 +26,21 @@ class StartTranscribe {
 
         // create a StartTranscriptionJobRequest object for this file
         StartTranscriptionJobRequest transcription_request = new StartTranscriptionJobRequest();
-        transcription_request.setLanguageCode(language_code);
-        transcription_request.setMediaFormat(media_format);
+        transcription_request.setLanguageCode("en-US");
+        transcription_request.setMediaFormat("mp3");
         transcription_request.setTranscriptionJobName(job_name);
         transcription_request.setMedia(this_file);
+        transcription_request.setOutputBucketName(awsBucketName);
 
         System.out.format("Start transcription job \'%s\' on file \'%s\'...\n", job_name, s3_url);
         final AmazonTranscribe aws_transcribe = AmazonTranscribeClientBuilder.defaultClient();
         try {
             aws_transcribe.startTranscriptionJob(transcription_request);
         } catch (AmazonServiceException e){
-            System.err.println("Aws erroor" + e.getErrorMessage());
-            System.exit(1);
+            System.err.println("Aws error" + e.getErrorMessage());
         }
         System.out.format("Started transcription job: %s\n", job_name);
+        return job_name;
     }
 
     private static String generateRandomString() {
