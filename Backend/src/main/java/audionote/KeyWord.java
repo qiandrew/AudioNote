@@ -11,6 +11,11 @@ public class KeyWord{
         word = str;
     }
 
+    public KeyWord(Word w){
+        this(w.getWord());
+        addOccurence(w);
+    }
+
     public void addOccurence(Word w){
         occurences.add(w);
         increment();

@@ -13,13 +13,13 @@ public class Transcription{
         str = s;
         JsonElement jElement = new JsonParser().parse(str);
         JsonObject jObject = jElement.getAsJsonObject();
-        jObject = jObject.getAsJsonObject("results");
-        JsonArray j1 = jObject.getAsJsonArray("items");
-        for(int i = 0; i < j1.size(); i++){
-            jObject = j1.get(i).getAsJsonObject();
-            JsonArray j2 = jObject.getAsJsonArray("alternatives");
-            jObject = j2.get(0).getAsJsonObject();
-            transcript.add(new Word(jObject.get("content").getAsString(), jObject.get("confience").getAsDouble(), jObject.get("start_time").getAsDouble(), jObject.get("end_time").getAsDouble()));
+        JsonObject results = jObject.getAsJsonObject("results");
+        JsonArray items = results.getAsJsonArray("items");
+        for(int i = 0; i < items.size(); i++){
+            JsonObject iter = items.get(i).getAsJsonObject();
+            JsonArray alternatives = iter.getAsJsonArray("alternatives");
+            JsonObject firstAlt = alternatives.get(0).getAsJsonObject();
+            transcript.add(new Word(firstAlt.get("content").getAsString(), firstAlt.get("confidence").getAsDouble(), iter.get("start_time").getAsDouble(), iter.get("end_time").getAsDouble()));
         }
         Analysis a = new Analysis(transcript);
         kw = a.getList();
@@ -49,5 +49,16 @@ public class Transcription{
 
     public ArrayList<KeyWord> kw(){
         return kw;
+    }
+    public ArrayList<KeyWord> topWords(){
+        if(kw.size() < 50){
+            return kw;
+        }
+        ArrayList<KeyWord> testBunny = new ArrayList();
+        for(int i = 0; i < 50; i++){
+            testBunny.add(kw.get(i));
+        }
+        return testBunny;
+
     }
 }

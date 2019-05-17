@@ -10,6 +10,7 @@ public class Analysis{
         for(int i = 0; i < w.size(); i++){
             addWord(input.get(i));
         }
+        sort();
     }
 
     public ArrayList<KeyWord> getList(){
@@ -17,12 +18,15 @@ public class Analysis{
     }
 
     private void addWord(Word w){
+
         for(int i = 0; i < order.size(); i++){
-            if(w.getWord() == order.get(i).getWord()){
+            if(w.getWord().equals(order.get(i).getWord())){
                 order.get(i).addOccurence(w);
-                break;
+                return;
             }
         }
+        order.add(new KeyWord(w));
+        /*
         Collections.sort(order, new Comparator<KeyWord>(){
 
             @Override
@@ -35,7 +39,22 @@ public class Analysis{
                 return c;
             }
         });
+         */
 
+    }
+    public void sort(){
+        Collections.sort(order, new Comparator<KeyWord>(){
+
+            @Override
+            public int compare(KeyWord k1, KeyWord k2){
+                int c;
+                c = k2.getFrequency() - k1.getFrequency();
+                if(c == 0){
+                    c = k1.getWord().compareTo(k2.getWord());
+                }
+                return c;
+            }
+        });
     }
 
 }
