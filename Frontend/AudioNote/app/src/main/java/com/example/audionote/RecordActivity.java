@@ -14,22 +14,36 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.AuthFailureError;
+import com.android.volley.error.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.android.volley.request.SimpleMultiPartRequest;
+
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
 public class RecordActivity extends AppCompatActivity {
 
-    Button btn_start_record, btn_stop_record, btn_play, btn_stop;
+    Button btn_start_record, btn_stop_record, btn_play, btn_stop, btn_upload;
     String pathSaveInDevice = "";
     String RandomAudioFileName = "ABCDEFGHIJKLMNOP";
+    String url = "https://audionoteucsb.herokuapp.com/transcription";
     MediaRecorder mediaRecorder;
     MediaPlayer mediaPlayer;
     Random random;
@@ -46,6 +60,7 @@ public class RecordActivity extends AppCompatActivity {
         btn_stop_record = (Button) findViewById(R.id.btn_stop_record);
         btn_play = (Button) findViewById(R.id.btn_play);
         btn_stop = (Button) findViewById(R.id.btn_stop);
+        btn_upload = (Button) findViewById(R.id.btn_upload);
 
 
         btn_stop_record.setEnabled(false);
@@ -123,6 +138,41 @@ public class RecordActivity extends AppCompatActivity {
             }
         });
 
+        //button to upload file
+        btn_upload.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                upload();
+            }
+        });
+    }
+
+    public void upload() {
+        String filePath = ""; // change the path here
+        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+        })
+        {
+            @Override
+                    public Map getHeaders() throws AuthFailureError {
+            HashMap headers = new HashMap();
+            headers.put("1234", "");
+            return headers;
+        }
+        };
+        smr.addStringParam("param string", " data text");
+        smr.addFile("audio", filePath);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        mRequestQueue.add(smr);
     }
 
     public void MediaRecorderReady() {
