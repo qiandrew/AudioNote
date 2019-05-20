@@ -27,6 +27,9 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.request.SimpleMultiPartRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -142,34 +145,43 @@ public class RecordActivity extends AppCompatActivity {
         btn_upload.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 String filePath = pathSaveInDevice;
-                upload(filePath);
+                try {
+                    upload(filePath);
+                } catch (AuthFailureError authFailureError) {
+                    authFailureError.printStackTrace();
+                }
             }
         });
     }
 
-    public void upload(String filePath) {
+    public void upload(String filePath) throws AuthFailureError {
         SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("Response", response);
+                        try {
+                            JSONObject this_json = new JSONObject(response);
+                            String jobID = this_json.getString("transcription_job");
+                            Log.d("jobID: ", jobID);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
-        })
-        {
+        }){
             @Override
-                    public Map getHeaders() throws AuthFailureError {
-            HashMap headers = new HashMap();
-            headers.put("1234", "");
-            return headers;
-        }
+            public Map getHeaders() throws AuthFailureError {
+                HashMap headers = new HashMap();
+                headers.put("Token", "1234");
+                return headers;
+            }
         };
-        smr.addStringParam("param string", " data text");
         smr.addFile("audio", filePath);
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         mRequestQueue.add(smr);

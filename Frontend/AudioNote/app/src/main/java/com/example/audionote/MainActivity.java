@@ -22,6 +22,8 @@ import android.widget.ToggleButton;
 
 import com.example.audionote.ui.main.SectionsPagerAdapter;
 
+import static com.example.audionote.R.layout.activity_main;
+
 public class MainActivity extends AppCompatActivity {
 
 
