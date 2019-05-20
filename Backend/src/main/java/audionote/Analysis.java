@@ -1,16 +1,42 @@
 package audionote;
 import java.util.*;
+import java.io.*;
 
 public class Analysis{
+
     private ArrayList<Word> input = new ArrayList<Word>();
     private ArrayList<KeyWord> order = new ArrayList<KeyWord>();
+    private ArrayList<String> common = new ArrayList<String>();
 
     public Analysis(ArrayList<Word> w){
         input = w;
+        loadCommon(5000);
         for(int i = 0; i < w.size(); i++){
-            addWord(input.get(i));
+            String lower = input.get(i).getWord().toLowerCase();
+            String normed = lower.replaceAll("\\p{Punct}", "");
+            if(!common.contains(normed)) {
+                addWord(input.get(i));
+            }
         }
         sort();
+    }
+
+    public void loadCommon(int n) {
+        File file = new File(getClass().getClassLoader().getResource("commonReference.txt").getFile());
+        try {
+            Scanner input = new Scanner(file);
+            int i = 0;
+            while (input.hasNextLine()) {
+                if (i >= n) {
+                    break;
+                }
+                common.add(input.nextLine());
+                i++;
+            }
+        }
+        catch(IOException e) {
+            System.err.println("error");
+        }
     }
 
     public ArrayList<KeyWord> getList(){
