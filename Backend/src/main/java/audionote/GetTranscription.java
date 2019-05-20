@@ -43,6 +43,6 @@ class GetTranscription {
         String jsonString = s3.getObjectAsString(s3uri.getBucket(), s3uri.getKey());
 
         // Return string
-        return String.format("{ \"status\": \"%s\", \"result\": %s }", jobStatus, jsonString);
+        return jsonString; //String.format("{ \"status\": \"%s\", \"result\": %s }", jobStatus, jsonString);
     }
 }
