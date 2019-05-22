@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+// Put "this" as Activity object when use it.
+
 public class GetTheTranscriptionJob {
     public void getTheJob(Activity this_activity,final String jobID) {
         String url = "https://audionoteucsb.herokuapp.com/transcription/" + jobID;
