@@ -19,6 +19,8 @@ public class Transcript {
         this.jobID = jobID;
     }
 
+    public String getText() {return text;}
+
     public void update(String text, Word[] words, KeyWord[] keyWords, URL fileLocation) {
         this.text = text;
         this.words = words;

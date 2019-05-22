@@ -1,30 +1,23 @@
 package com.example.audionote;
 
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
+
 import android.os.Bundle;
 
 import com.github.clans.fab.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ToggleButton;
+
 
 import com.example.audionote.ui.main.SectionsPagerAdapter;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.Key;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -71,11 +64,20 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+
+
         FloatingActionButton fab_record = findViewById(R.id.fab_record);
         fab_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openRecordActivity();
+            }
+        });
+        FloatingActionButton fab_upload = findViewById(R.id.fab_upload);
+        fab_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUploadActivity();
             }
         });
 
@@ -85,4 +87,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RecordActivity.class);
         startActivity(intent);
     }
+    public void openUploadActivity() {
+        Intent intent  = new Intent(this, activity_upload.class);
+        startActivity(intent);
+    }
+
+
+
+
 }

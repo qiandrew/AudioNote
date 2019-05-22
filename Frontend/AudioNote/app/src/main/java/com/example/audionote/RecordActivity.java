@@ -1,29 +1,35 @@
 package com.example.audionote;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.icu.text.AlphabeticIndex;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.InputType;
+
 import android.view.View;
+
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
-import java.util.UUID;
+
 
 public class RecordActivity extends AppCompatActivity {
 
@@ -33,7 +39,9 @@ public class RecordActivity extends AppCompatActivity {
     MediaRecorder mediaRecorder;
     MediaPlayer mediaPlayer;
     Random random;
-    public static final int RequestPermissionCode = 1;
+    static final int RequestPermissionCode = 1;
+    static String audioNameOri = "";
+    static String audioNameMod = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +66,8 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (checkPermission()) {
-                    pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + CreateRandomAudioFileName(5) + "recorded_audio.3gp";
+                    audioNameOri = CreateRandomAudioFileName(5);
+                    pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + audioNameOri + ".wav";
                     MediaRecorderReady();
                     try {
                         mediaRecorder.prepare();
@@ -82,11 +91,13 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mediaRecorder.stop();
+                getNameFunction();
                 btn_stop.setEnabled(false);
                 btn_stop_record.setEnabled(false);
                 btn_play.setEnabled(true);
                 btn_start_record.setEnabled(true);
                 Toast.makeText(RecordActivity.this, "Recording Completed", Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -176,4 +187,39 @@ public class RecordActivity extends AppCompatActivity {
                     RECORD_AUDIO);
             return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
     }
+
+
+    public void getNameFunction() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Save Audio Name As:");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                audioNameMod = input.getText().toString();
+                setFileName();
+            }
+        });
+        builder.setNegativeButton("I prefer a random name", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void setFileName() {
+        File sdcard = Environment.getExternalStorageDirectory();
+        File from = new File(sdcard,audioNameOri+".wav");
+        File to = new File(sdcard,audioNameMod+".wav");
+        from.renameTo(to);
+    }
+
+
 }
