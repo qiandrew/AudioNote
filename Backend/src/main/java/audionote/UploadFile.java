@@ -32,7 +32,6 @@ class UploadFile {
             }
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
-            System.exit(1);
         }
     }
 }
