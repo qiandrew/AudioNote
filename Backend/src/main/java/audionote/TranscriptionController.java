@@ -78,10 +78,10 @@ public class TranscriptionController {
         // Get transcript
         try {
             String result = GetTranscription.getResult(job_name);
-            Transcription t = new Transcription(result);
-            for(int i = 0; i < t.topWords().size();i++){
+            /*for(int i = 0; i < t.topWords().size();i++){
                 System.out.println(t.topWords().get(i).getWord() + "  " + t.topWords().get(i).getFrequency());
-            }
+            }*/
+
             return new ResponseEntity<String>(result, HttpStatus.OK);
         } catch (AmazonServiceException e) {
             System.out.println("Transcription failed: " + e);
