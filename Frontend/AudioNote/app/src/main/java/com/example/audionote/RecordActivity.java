@@ -76,7 +76,7 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (checkPermission()) {
-                    pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + CreateRandomAudioFileName(5) + "recorded_audio.3gp";
+                    pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + CreateRandomAudioFileName(5) + ".wav";
                     MediaRecorderReady();
                     try {
                         mediaRecorder.prepare();
@@ -163,7 +163,8 @@ public class RecordActivity extends AppCompatActivity {
                         try {
                             JSONObject this_json = new JSONObject(response);
                             String jobID = this_json.getString("transcription_job");
-                            Log.d("jobID: ", jobID);
+                            Transcript this_transcript = new Transcript(jobID);
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -201,7 +202,6 @@ public class RecordActivity extends AppCompatActivity {
         while(i < string ) {
             stringBuilder.append(RandomAudioFileName.
                     charAt(random.nextInt(RandomAudioFileName.length())));
-
             i++ ;
         }
         return stringBuilder.toString();
