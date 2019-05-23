@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class DisplayActivity extends AppCompatActivity {
 
     ScrollView transcript_view;
     TextView transcript_text;
+    ArrayList<KeyWord> keyWords;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
