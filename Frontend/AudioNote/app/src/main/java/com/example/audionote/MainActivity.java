@@ -1,31 +1,34 @@
 package com.example.audionote;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.AuthFailureError;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.clans.fab.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ToggleButton;
 
 import com.example.audionote.ui.main.SectionsPagerAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.Key;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,10 +82,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton fab_upload = findViewById(R.id.fab_upload);
+        // home page to file picker page
+
     }
 
     public void openRecordActivity() {
         Intent intent = new Intent(this, RecordActivity.class);
         startActivity(intent);
+    }
+
+    public void getTheJob(final String jobID) {
+        String url = "https://audionoteucsb.herokuapp.com/transcription/" + jobID;
+        StringRequest sr = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject this_json = new JSONObject(response);
+                            Transcript this_job = new Transcript(jobID);
+                            this_job.jsonParser(this_json);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error: ", error.getMessage());
+                    }
+                }
+        ) {
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                HashMap headers = new HashMap();
+                headers.put("Token", "1234");
+                return headers;
+            }
+        };
+        RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
+        mQueue.add(sr);
     }
 }

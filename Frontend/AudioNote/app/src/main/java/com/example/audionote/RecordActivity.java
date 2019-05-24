@@ -14,22 +14,39 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.AuthFailureError;
+import com.android.volley.error.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.android.volley.request.SimpleMultiPartRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
 public class RecordActivity extends AppCompatActivity {
 
-    Button btn_start_record, btn_stop_record, btn_play, btn_stop;
+    Button btn_start_record, btn_stop_record, btn_play, btn_stop, btn_upload;
     String pathSaveInDevice = "";
     String RandomAudioFileName = "ABCDEFGHIJKLMNOP";
+    String url = "https://audionoteucsb.herokuapp.com/transcription";
     MediaRecorder mediaRecorder;
     MediaPlayer mediaPlayer;
     Random random;
@@ -46,6 +63,7 @@ public class RecordActivity extends AppCompatActivity {
         btn_stop_record = (Button) findViewById(R.id.btn_stop_record);
         btn_play = (Button) findViewById(R.id.btn_play);
         btn_stop = (Button) findViewById(R.id.btn_stop);
+        btn_upload = (Button) findViewById(R.id.btn_upload);
 
 
         btn_stop_record.setEnabled(false);
@@ -58,7 +76,7 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (checkPermission()) {
-                    pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + CreateRandomAudioFileName(5) + "recorded_audio.3gp";
+                    pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + CreateRandomAudioFileName(5) + ".wav";
                     MediaRecorderReady();
                     try {
                         mediaRecorder.prepare();
@@ -123,6 +141,51 @@ public class RecordActivity extends AppCompatActivity {
             }
         });
 
+        //button to upload file
+        btn_upload.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                String filePath = pathSaveInDevice;
+                try {
+                    upload(filePath);
+                } catch (AuthFailureError authFailureError) {
+                    authFailureError.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void upload(String filePath) throws AuthFailureError {
+        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response", response);
+                        try {
+                            JSONObject this_json = new JSONObject(response);
+                            String jobID = this_json.getString("transcription_job");
+                            Transcript this_transcript = new Transcript(jobID);
+                            finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+        }){
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                HashMap headers = new HashMap();
+                headers.put("Token", "1234");
+                return headers;
+            }
+        };
+        smr.addFile("audio", filePath);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        mRequestQueue.add(smr);
     }
 
     public void MediaRecorderReady() {
@@ -139,7 +202,6 @@ public class RecordActivity extends AppCompatActivity {
         while(i < string ) {
             stringBuilder.append(RandomAudioFileName.
                     charAt(random.nextInt(RandomAudioFileName.length())));
-
             i++ ;
         }
         return stringBuilder.toString();
