@@ -20,6 +20,12 @@ class StartTranscribe {
         String s3_url = "s3://" + System.getenv("AWS_BUCKET_NAME") + "/" + file_name; // ex: s3://audionoteucsb/samplefile.mp3
         System.out.println("url: " + s3_url);
 
+        String extension = "";
+        int i = file_name.lastIndexOf('.');
+        if (i > 0) {
+            extension = file_name.substring(i + 1);
+        }
+
         // create a Media object for this file
         Media this_file = new Media();
         this_file.setMediaFileUri(s3_url);
@@ -27,7 +33,7 @@ class StartTranscribe {
         // create a StartTranscriptionJobRequest object for this file
         StartTranscriptionJobRequest transcription_request = new StartTranscriptionJobRequest();
         transcription_request.setLanguageCode("en-US");
-        transcription_request.setMediaFormat("mp3");
+        transcription_request.setMediaFormat(extension);
         transcription_request.setTranscriptionJobName(job_name);
         transcription_request.setMedia(this_file);
         transcription_request.setOutputBucketName(awsBucketName);

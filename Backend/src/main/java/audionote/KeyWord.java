@@ -4,7 +4,7 @@ public class KeyWord{
 
     private String word = "";
     private int frequency = 0;
-    private ArrayList<Word> occurences = new ArrayList<Word>();
+    public ArrayList<Word> occurences = new ArrayList<Word>();
 
     //Words should be added sequentially
     public KeyWord(String str){

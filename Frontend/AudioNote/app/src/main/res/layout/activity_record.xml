@@ -51,9 +51,30 @@
         android:text="Stop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+<<<<<<< HEAD
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_play"
         app:layout_constraintTop_toBottomOf="@+id/btn_stop_record" />
+=======
+        app:layout_constraintStart_toEndOf="@+id/btn_start_record" />
+
+    <Button
+        android:id="@+id/btn_upload"
+        style="@android:style/Widget.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginLeft="161dp"
+        android:layout_marginTop="557dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginRight="162dp"
+        android:layout_marginBottom="126dp"
+        android:text="Upload"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+>>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,13 +5,17 @@ import org.json.*;
 import com.google.gson.*;
 
 public class Transcription{
-    private String str;
+    private String status;
+    private String jobID;
+    private String str;//Transcript
     private ArrayList<Word> transcript = new ArrayList<Word>();
     private ArrayList<KeyWord> kw = new ArrayList<KeyWord>();
 
     public Transcription(String s){
         JsonElement jElement = new JsonParser().parse(s);
         JsonObject jObject = jElement.getAsJsonObject();
+        jobID = jObject.get("jobName").getAsString();
+        status = jObject.get("status").getAsString();
         JsonObject results = jObject.getAsJsonObject("results");
         JsonArray transcripts = results.getAsJsonArray("transcripts");
         str = transcripts.get(0).getAsJsonObject().get("transcript").getAsString();
@@ -27,28 +31,45 @@ public class Transcription{
         }
         Analysis a = new Analysis(transcript);
         kw = a.getList();
-        /*
-        JSONObject obj0 = new JSONObject(str);
-        JSONObject obj = (JSONObject) obj0.get("results");
-        JSONArray ja = (JSONArray) obj.get("items");
-        //Iterator i = ja.iterator();
-        while(i.hasNext()){
-            JSONObject i2 = (JSONObject) i.next();
-            JSONArray ja2 = (JSONArray) i2.get("alternatives");
-            JSONObject prim = (JSONObject) ja2.getJSONObject(0);
-            transcript.add(new Word(prim.getString("content"), Double.parseDouble(prim.getString("confidence")),Double.parseDouble(i2.getString("start_time")),Double.parseDouble(i2.getString("end_time"))));
-        }
-        for(int i = 0; i < ja.length(); i++){
-            JSONObject i2 = ja.getJSONObject(i);
-            }
-            JSONArray ja2 = (JSONArray) i2.get("alternatives");
-            JSONObject prim = (JSONObject) ja2.getJSONObject(0);
-            transcript.add(new Word(prim.getString("content"), Double.parseDouble(prim.getString("confidence")),Double.parseDouble(i2.getString("start_time")),Double.parseDouble(i2.getString("end_time"))));
-        }
+    }
 
-        Analysis a = new Analysis(transcript);
-        kw = a.getList();
-        */
+    public String toJSON(){
+        JSONObject json = new JSONObject();
+        json.put("status", status);
+        json.put("jobID", jobID);
+
+        JSONObject results = new JSONObject();
+        results.put("transcript", str);
+        JSONArray word = new JSONArray();
+        for(int i = 0; i < transcript.size(); i++){
+            JSONObject temp = new JSONObject();
+            temp.put("word",transcript.get(i).getWord());
+            temp.put("start_time",transcript.get(i).getStartTime());
+            temp.put("end_time",transcript.get(i).getEndTime());
+            word.put(temp);
+        }
+        results.put("words", word);
+        JSONArray keyWord = new JSONArray();
+        ArrayList<KeyWord> top = topWords();
+        for(int i = 0; i < top.size(); i++){
+            JSONObject temp1 = new JSONObject();
+            temp1.put("word", top.get(i).getWord());
+            temp1.put("frequency", top.get(i).getFrequency());
+            JSONArray occur = new JSONArray();
+            for(int iKey = 0; iKey < top.get(i).occurences.size(); iKey++){
+                JSONObject temp2 = new JSONObject();
+                temp2.put("word",top.get(i).getWord());
+                temp2.put("start_time",top.get(i).occurences.get(iKey).getStartTime());
+                temp2.put("end_time", top.get(i).occurences.get(iKey).getEndTime());
+                occur.put(temp2);
+            }
+            temp1.put("occurences", occur);
+            keyWord.put(temp1);
+        }
+        results.put("key_words", keyWord);
+        json.put("results", results);
+        return json.toString();
+
     }
 
     public ArrayList<KeyWord> kw(){
