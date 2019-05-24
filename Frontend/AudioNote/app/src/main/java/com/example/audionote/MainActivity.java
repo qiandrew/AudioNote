@@ -8,6 +8,8 @@ import com.github.clans.fab.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,11 +33,32 @@ public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Transcript> dummyTranscripts = new ArrayList<Transcript>();
 
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // DUMMY TRANSCRIPTS BELOW
+        String[] myDataset = new String[10];
+
+        setContentView(R.layout.activity_main);
+        recyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        //Create a new adapter with String[] of jobIDs
+        mAdapter = new MyAdapter(myDataset);
+        recyclerView.setAdapter(mAdapter);
+
+    // DUMMY TRANSCRIPTS BELOW
 
         Word[] words = new Word[10];
         for (int i = 0; i < 10; i++) {
@@ -78,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 openRecordActivity();
             }
         });
-
     }
 
     public void openRecordActivity() {
