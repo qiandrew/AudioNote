@@ -27,7 +27,7 @@ class StartTranscribe {
         // create a StartTranscriptionJobRequest object for this file
         StartTranscriptionJobRequest transcription_request = new StartTranscriptionJobRequest();
         transcription_request.setLanguageCode("en-US");
-        transcription_request.setMediaFormat("wav");
+        transcription_request.setMediaFormat("mp3");
         transcription_request.setTranscriptionJobName(job_name);
         transcription_request.setMedia(this_file);
         transcription_request.setOutputBucketName(awsBucketName);
