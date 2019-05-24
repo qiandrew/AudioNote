@@ -164,6 +164,7 @@ public class RecordActivity extends AppCompatActivity {
                             JSONObject this_json = new JSONObject(response);
                             String jobID = this_json.getString("transcription_job");
                             Transcript this_transcript = new Transcript(jobID);
+                            TranscriptManager.saveNewTranscript(this_transcript);
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Save example
 
-        ArrayList<Transcript> transcripts = TranscriptManager.fetchTranscripts();
-        TranscriptManager.saveNewTranscript(dummyTranscripts.get(0));
+//        ArrayList<Transcript> transcripts = TranscriptManager.fetchTranscripts();
+//        TranscriptManager.saveNewTranscript(dummyTranscripts.get(0));
 
         setContentView(R.layout.activity_main);
 
