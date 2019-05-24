@@ -14,12 +14,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-<<<<<<< HEAD
+//<<<<<<< HEAD
 import android.text.InputType;
 
-=======
+//=======
 import android.util.Log;
->>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
+//>>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
 import android.view.View;
 
 import android.widget.Button;
@@ -40,10 +40,10 @@ import org.json.JSONObject;
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
-=======
->>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
+//=======
+//>>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -89,12 +89,11 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (checkPermission()) {
-<<<<<<< HEAD
+//<<<<<<< HEAD
                     audioNameOri = CreateRandomAudioFileName(5);
                     pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + audioNameOri + ".mp4";
-=======
-                    pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + CreateRandomAudioFileName(5) + ".mp4";
->>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
+//=======
+//>>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
                     MediaRecorderReady();
                     try {
                         mediaRecorder.prepare();

@@ -65,7 +65,7 @@ public class activity_upload extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("audio/*");
+                intent.setType("video/*");
                 startActivityForResult(intent, PICK_AUDIO_REQUEST_CODE);
 
 
@@ -178,7 +178,7 @@ public class activity_upload extends AppCompatActivity {
         }
         return null;
     }
-
+    //
 
     /**
      * @param uri The Uri to check.

@@ -1,9 +1,9 @@
 package com.example.audionote;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
-=======
->>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
+//=======
+//>>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -21,13 +21,13 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 import android.view.View;
 
-=======
+//=======
 import android.util.Log;
 import android.view.View;
->>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
+//>>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
 
 import com.example.audionote.ui.main.SectionsPagerAdapter;
 
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RecordActivity.class);
         startActivity(intent);
     }
-<<<<<<< HEAD
+//<<<<<<< HEAD
     public void openUploadActivity() {
         Intent intent  = new Intent(this, activity_upload.class);
         startActivity(intent);
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-=======
+//=======
 
     public void getTheJob(final String jobID) {
         String url = "https://audionoteucsb.herokuapp.com/transcription/" + jobID;
@@ -155,5 +155,5 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
         mQueue.add(sr);
     }
->>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
+//>>>>>>> 873c3103e0621399499890df8eae7f3f1b919856
 }
