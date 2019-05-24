@@ -87,9 +87,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab_upload = findViewById(R.id.fab_upload);
-        // home page to file picker page
-
     }
 
     public void openRecordActivity() {
