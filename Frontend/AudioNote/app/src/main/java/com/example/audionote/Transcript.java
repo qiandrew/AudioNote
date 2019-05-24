@@ -3,10 +3,11 @@ package com.example.audionote;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Transcript {
+public class Transcript implements Serializable {
 
     private String jobID;
     private String text;
@@ -32,4 +33,23 @@ public class Transcript {
         text = resultsObject.getJSONArray("transcripts").getJSONObject(0).getString("transcript");
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        // check for null
+        if (obj == null) {
+            return false;
+        }
+
+        // Check if it's a transcript
+        if (!Transcript.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+
+        // Check job ids
+        final Transcript other = (Transcript) obj;
+        return other.jobID.equals(jobID);
+    }
+
 }
