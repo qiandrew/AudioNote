@@ -67,7 +67,7 @@ public class RecordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (checkPermission()) {
                     audioNameOri = CreateRandomAudioFileName(5);
-                    pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + audioNameOri + ".wav";
+                    pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + audioNameOri + ".mp4";
                     MediaRecorderReady();
                     try {
                         mediaRecorder.prepare();
@@ -216,8 +216,8 @@ public class RecordActivity extends AppCompatActivity {
 
     private void setFileName() {
         File sdcard = Environment.getExternalStorageDirectory();
-        File from = new File(sdcard,audioNameOri+".wav");
-        File to = new File(sdcard,audioNameMod+".wav");
+        File from = new File(sdcard,audioNameOri+".mp4");
+        File to = new File(sdcard,audioNameMod+".mp4");
         from.renameTo(to);
     }
 

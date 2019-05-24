@@ -28,28 +28,28 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp">
+            android:layout_marginTop="70dp"
+            android:background="@color/cardview_shadow_end_color">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Audio Name"/>
 
             <ImageButton
                 android:id="@+id/btn_play"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_toLeftOf="@id/btn_pause"
-                android:src="@android:drawable/ic_media_play" />
-
-            <ImageButton
-                android:id="@+id/btn_pause"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_toLeftOf="@+id/btn_stop"
-                android:src="@android:drawable/ic_media_pause" />
+                android:layout_toLeftOf="@id/btn_stop"
+                android:src="@drawable/display_play_audio" />
 
             <ImageButton
                 android:id="@+id/btn_stop"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_media_stop" />
+                android:src="@drawable/display_stop_audio" />
 
         </RelativeLayout>
 
@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="70dp"/>
+                android:layout_marginBottom="70dp" />
 
         </LinearLayout>
 
