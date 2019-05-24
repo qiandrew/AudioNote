@@ -1,5 +1,8 @@
 package com.example.audionote;
-public class Word{
+
+import java.io.Serializable;
+
+public class Word implements Serializable {
 
     private String word = "";
     private double confidence = 0;

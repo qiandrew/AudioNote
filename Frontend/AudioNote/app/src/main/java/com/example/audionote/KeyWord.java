@@ -1,6 +1,7 @@
 package com.example.audionote;
+import java.io.Serializable;
 import java.util.*;
-public class KeyWord{
+public class KeyWord implements Serializable {
 
     private String word = "";
     private int frequency = 0;

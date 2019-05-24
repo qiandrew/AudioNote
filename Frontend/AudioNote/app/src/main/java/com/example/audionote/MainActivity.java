@@ -61,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
         // DUMMY TRANSCRIPTS ABOVE
 
+        // Save example
+
+        ArrayList<Transcript> transcripts = TranscriptManager.fetchTranscripts();
+        TranscriptManager.saveNewTranscript(dummyTranscripts.get(0));
+
         setContentView(R.layout.activity_main);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
