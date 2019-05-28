@@ -178,7 +178,7 @@ public class activity_upload extends AppCompatActivity {
         }
         return null;
     }
-    //
+
 
     /**
      * @param uri The Uri to check.
@@ -204,4 +204,6 @@ public class activity_upload extends AppCompatActivity {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
+
+    //
 }

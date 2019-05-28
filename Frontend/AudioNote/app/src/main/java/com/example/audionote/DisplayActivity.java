@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.media.Image;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -27,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DisplayActivity extends AppCompatActivity {
 
@@ -35,6 +39,7 @@ public class DisplayActivity extends AppCompatActivity {
     ImageButton btn_play, btn_stop;
     boolean playing, first_play;
     KeyWord[] keyWords;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +53,7 @@ public class DisplayActivity extends AppCompatActivity {
             words[i] = new Word("dummy", 1.00, 0.00, 1.00);
         }
 
-        KeyWord[] keyWords = new KeyWord[1];
+        KeyWord[] keyWords = new KeyWord[5];
         keyWords[0] = new KeyWord("dummy");
 
         try {
@@ -69,10 +74,10 @@ public class DisplayActivity extends AppCompatActivity {
         //
 
         dummyTranscripts.get(0).getKeyWords()[0] = new KeyWord("Pythagorean");
-        dummyTranscripts.get(0).getKeyWords()[0] = new KeyWord("Solar System");
-        dummyTranscripts.get(0).getKeyWords()[0] = new KeyWord("AudioNote");
-        dummyTranscripts.get(0).getKeyWords()[0] = new KeyWord("Android Studio");
-        dummyTranscripts.get(0).getKeyWords()[0] = new KeyWord("Frontend");
+        dummyTranscripts.get(0).getKeyWords()[1] = new KeyWord("Solar System");
+        dummyTranscripts.get(0).getKeyWords()[2] = new KeyWord("AudioNote");
+        dummyTranscripts.get(0).getKeyWords()[3] = new KeyWord("Android Studio");
+        dummyTranscripts.get(0).getKeyWords()[4] = new KeyWord("Frontend");
 
         String text = "Yesterday\n" +
                 "All my AudioNote troubles Pythagorean seemed so far away\n" +
@@ -102,6 +107,7 @@ public class DisplayActivity extends AppCompatActivity {
         //dummyTranscripts.get(0).setText(text);
         Transcript transcript = dummyTranscripts.get(0);
         transcript.setText(text);
+
 
         //
 
@@ -161,33 +167,20 @@ public class DisplayActivity extends AppCompatActivity {
         String word;
 
         for (int i = 0; i < keyWords.length; i++) {
+            Log.d("", "keyWords.length: "+keyWords.length);
             word_length = keyWords[i].getWord().length();
             word = keyWords[i].getWord();
 
 
             for (int j = -1; (j = text.indexOf(word, j + 1)) != -1; j++) {
                 //System.out.println(i);
-                ssb.setSpan(new BackgroundColorSpan(Color.YELLOW), j, j+word_length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ss.setSpan(new BackgroundColorSpan(Color.YELLOW), j, j+word_length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
         }
 
-//        for (int j = -1; (j = text.indexOf("Frontend", j + 1)) != -1; j++) {
-//            //System.out.println(i);
-//            ss.setSpan(new BackgroundColorSpan(Color.YELLOW), j, j+9, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        }
-//        for (int j = -1; (j = text.indexOf("AudioNote", j + 1)) != -1; j++) {
-//            //System.out.println(i);
-//            ss.setSpan(new BackgroundColorSpan(Color.YELLOW), j, j+10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        }
-//        for (int j = -1; (j = text.indexOf("Solar System", j + 1)) != -1; j++) {
-//            //System.out.println(i);
-//            ss.setSpan(new BackgroundColorSpan(Color.YELLOW), j, j+12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        }
 
-        textView.setText(ssb);
-
-
+        textView.setText(ss);
 
     }
 
