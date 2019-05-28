@@ -1,6 +1,7 @@
 package com.example.audionote;
 
 import android.content.Intent;
+
 import android.os.Bundle;
 
 import com.android.volley.Request;
@@ -15,6 +16,8 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.View;
 
 import android.util.Log;
 import android.view.View;
@@ -79,11 +82,20 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+
+
         FloatingActionButton fab_record = findViewById(R.id.fab_record);
         fab_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openRecordActivity();
+            }
+        });
+        FloatingActionButton fab_upload = findViewById(R.id.fab_upload);
+        fab_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUploadActivity();
             }
         });
 
@@ -93,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RecordActivity.class);
         startActivity(intent);
     }
+    public void openUploadActivity() {
+        Intent intent  = new Intent(this, activity_upload.class);
+        startActivity(intent);
+    }
+
+
+
+
+
 
     public void getTheJob(final String jobID) {
         String url = "https://audionoteucsb.herokuapp.com/transcription/" + jobID;

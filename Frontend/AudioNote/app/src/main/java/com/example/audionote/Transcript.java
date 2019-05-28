@@ -20,6 +20,12 @@ public class Transcript implements Serializable {
         this.jobID = jobID;
     }
 
+    //
+    public String getText() {return text;}
+    public KeyWord[] getKeyWords() {return keyWords;}
+    public void setText(String text) {this.text = text;}
+    //
+
     public void update(String text, Word[] words, KeyWord[] keyWords, URL fileLocation) {
         this.text = text;
         this.words = words;
