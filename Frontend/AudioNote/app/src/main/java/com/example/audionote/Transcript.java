@@ -63,7 +63,7 @@ public class Transcript implements Serializable {
             JSONArray keyWordOccurances = object.getJSONArray("occurences");
             ArrayList<Word> occurances = new ArrayList<>();
             for (int j = 0; j < keyWordOccurances.length(); j++) {
-                JSONObject wordObject = keyWordOccurances.getJSONObject(i);
+                JSONObject wordObject = keyWordOccurances.getJSONObject(j);
                 Word occuranceWord = new Word(wordObject.getString("word"), 1.0, wordObject.getDouble("start_time"), wordObject.getDouble("end_time"));
                 occurances.add(occuranceWord);
             }

@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 Transcript transcription = TranscriptManager.fetchTranscripts().get(position);
                 if (!transcription.getIsFinished()) {
                     Toast.makeText(getApplicationContext(), "Transcription not finished", Toast.LENGTH_LONG).show();
+                    refreshSavedItems();
                     return;
                 }
                 Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
