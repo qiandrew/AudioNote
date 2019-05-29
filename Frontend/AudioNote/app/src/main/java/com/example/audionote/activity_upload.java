@@ -69,7 +69,7 @@ public class activity_upload extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("video/*");
+                intent.setType("audio/*");
                 startActivityForResult(intent, PICK_AUDIO_REQUEST_CODE);
 
 
@@ -79,7 +79,8 @@ public class activity_upload extends AppCompatActivity {
         btn_upload = findViewById(R.id.btn_upload);
         btn_upload.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                String filePath = audioPath;
+                //String filePath = audioPath;
+                String filePath = tempPath;
                 try {
                     System.out.println("uploading audio: " + filePath);
                     upload(filePath);
@@ -113,10 +114,8 @@ public class activity_upload extends AppCompatActivity {
 
 
                 //test
-                audioUriString = uri.toString();
                 audioName = getFileName(uri);
                 audioPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + audioName;
-                Toast.makeText(this, "File name: " + audioName +"\n File path: " + audioPath + "\n tempFilePath: "+tempPath,Toast.LENGTH_LONG).show();
                 textView.setText("audioPath: "+audioPath+"\n tempPath: " + tempPath+ "\nuri.getPath(): "+uri.getPath() );
 
             }

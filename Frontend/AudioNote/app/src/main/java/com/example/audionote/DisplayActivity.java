@@ -168,22 +168,23 @@ public class DisplayActivity extends AppCompatActivity {
         String word;
 
         for (int i = 0; i < keyWords.length; i++) {
-            Log.d("", "keyWords.length: "+keyWords.length);
+            Log.d("", "keyWords.length: " + keyWords.length);
             word_length = keyWords[i].getWord().length();
             word = keyWords[i].getWord();
 
 
             for (int j = -1; (j = text.indexOf(word, j + 1)) != -1; j++) {
                 //System.out.println(i);
+//
                 ss.setSpan(new BackgroundColorSpan(Color.YELLOW), j, j+word_length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
             }
+
+
+            textView.setText(ss);
 
         }
 
-
-        textView.setText(ss);
-
     }
-
-
 }
