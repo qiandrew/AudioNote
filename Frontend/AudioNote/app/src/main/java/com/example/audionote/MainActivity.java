@@ -12,17 +12,18 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.request.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.clans.fab.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import com.example.audionote.ui.main.SectionsPagerAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,10 +37,54 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Transcript> dummyTranscripts = new ArrayList<Transcript>();
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Log.d(TAG, "Before");
+        ListView listView = findViewById(R.id.listView);
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("one");
+        arrayList.add("two");
+        arrayList.add("three");
+        arrayList.add("four");
+        arrayList.add("five");
+        arrayList.add("one");
+        arrayList.add("two");
+        arrayList.add("three");
+        arrayList.add("four");
+        arrayList.add("five");
+        arrayList.add("one");
+        arrayList.add("two");
+        arrayList.add("three");
+        arrayList.add("four");
+        arrayList.add("five");
+        arrayList.add("one");
+        arrayList.add("two");
+        arrayList.add("three");
+        arrayList.add("four");
+        arrayList.add("five");
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            Log.d(TAG, ""+arrayList.get(i));
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
+        adapter.notifyDataSetChanged();
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Log.d(TAG, "After");
 
         // DUMMY TRANSCRIPTS BELOW
 
@@ -72,15 +117,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Transcript> transcripts = TranscriptManager.fetchTranscripts();
         TranscriptManager.saveNewTranscript(dummyTranscripts.get(0));
 
-        setContentView(R.layout.activity_main);
-
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-
-        final ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
 
 
 
@@ -147,4 +183,8 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
         mQueue.add(sr);
     }
+
+
+
+
 }
