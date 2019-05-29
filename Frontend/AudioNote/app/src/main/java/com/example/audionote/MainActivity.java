@@ -37,7 +37,6 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Transcript> dummyTranscripts = new ArrayList<Transcript>();
-    //ListView listView;
     private static final String TAG = "MainActivity";
 
     @Override

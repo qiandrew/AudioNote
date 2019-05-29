@@ -49,15 +49,6 @@ public class activity_upload extends AppCompatActivity {
 
         //delete later
         textView = findViewById(R.id.textView);
-        Button Transcript = (Button) findViewById(R.id.Transcript);
-        Transcript.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity_upload.this, DisplayActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
         btn_picker = findViewById(R.id.btn_picker);
         btn_picker.setOnClickListener(new View.OnClickListener() {
