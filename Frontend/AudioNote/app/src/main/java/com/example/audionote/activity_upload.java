@@ -24,13 +24,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.AuthFailureError;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.SimpleMultiPartRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class activity_upload extends AppCompatActivity {
 
     private static final int PICK_AUDIO_REQUEST_CODE = 8778;
-    Button btn_picker;
+    Button btn_picker, btn_upload;
     String audioUriString;
     String audioName;
 
@@ -56,11 +69,24 @@ public class activity_upload extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("video/*");
+                intent.setType("audio/*");
                 startActivityForResult(intent, PICK_AUDIO_REQUEST_CODE);
 
 
 
+            }
+        });
+        btn_upload = findViewById(R.id.btn_upload);
+        btn_upload.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //String filePath = audioPath;
+                String filePath = tempPath;
+                try {
+                    System.out.println("uploading audio: " + filePath);
+                    upload(filePath);
+                } catch (AuthFailureError authFailureError) {
+                    authFailureError.printStackTrace();
+                }
             }
         });
 
@@ -88,10 +114,8 @@ public class activity_upload extends AppCompatActivity {
 
 
                 //test
-                audioUriString = uri.toString();
                 audioName = getFileName(uri);
                 audioPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + audioName;
-                Toast.makeText(this, "File name: " + audioName +"\n File path: " + audioPath + "\n tempFilePath: "+tempPath,Toast.LENGTH_LONG).show();
                 textView.setText("audioPath: "+audioPath+"\n tempPath: " + tempPath+ "\nuri.getPath(): "+uri.getPath() );
 
             }
@@ -197,4 +221,40 @@ public class activity_upload extends AppCompatActivity {
 
 
     //
+    public void upload(String filePath) throws AuthFailureError {
+        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response", response);
+                        try {
+                            JSONObject this_json = new JSONObject(response);
+                            String jobID = this_json.getString("transcription_job");
+                            Transcript this_transcript = new Transcript(jobID);
+                            TranscriptManager.saveNewTranscript(this_transcript);
+                            System.out.println("Saved recording");
+                            finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                HashMap headers = new HashMap();
+                headers.put("Token", "1234");
+                return headers;
+            }
+        };
+        smr.addFile("audio", filePath);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        mRequestQueue.add(smr);
+        System.out.println("bottom upload");
+    }
 }

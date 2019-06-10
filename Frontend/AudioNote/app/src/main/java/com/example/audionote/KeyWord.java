@@ -8,8 +8,10 @@ public class KeyWord implements Serializable {
     private ArrayList<Word> occurences = new ArrayList<Word>();
 
     //Words should be added sequentially
-    public KeyWord(String str){
+    public KeyWord(String str, ArrayList<Word> occurences){
         word = str;
+        this.occurences = occurences;
+        this.frequency = this.occurences.size();
     }
 
     public void addOccurence(Word w){

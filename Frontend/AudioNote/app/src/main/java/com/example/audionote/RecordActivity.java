@@ -155,6 +155,7 @@ public class RecordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String filePath = pathSaveInDevice;
                 try {
+                    System.out.println("uploading audio: " + filePath);
                     upload(filePath);
                 } catch (AuthFailureError authFailureError) {
                     authFailureError.printStackTrace();
@@ -173,6 +174,8 @@ public class RecordActivity extends AppCompatActivity {
                             JSONObject this_json = new JSONObject(response);
                             String jobID = this_json.getString("transcription_job");
                             Transcript this_transcript = new Transcript(jobID);
+                            TranscriptManager.saveNewTranscript(this_transcript);
+                            System.out.println("Saved recording");
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -195,12 +198,13 @@ public class RecordActivity extends AppCompatActivity {
         smr.addFile("audio", filePath);
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         mRequestQueue.add(smr);
+        System.out.println("bottom upload");
     }
 
     public void MediaRecorderReady() {
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         mediaRecorder.setOutputFile(pathSaveInDevice);
     }
@@ -279,6 +283,7 @@ public class RecordActivity extends AppCompatActivity {
         File from = new File(sdcard,audioNameOri+".mp4");
         File to = new File(sdcard,audioNameMod+".mp4");
         from.renameTo(to);
+        pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + audioNameMod + ".mp4";
     }
 
 
