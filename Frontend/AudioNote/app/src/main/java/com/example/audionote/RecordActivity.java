@@ -63,8 +63,6 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
 
-        Toast.makeText(RecordActivity.this, "Recoding Screen", Toast.LENGTH_SHORT).show();
-
         btn_start_record = (Button) findViewById(R.id.btn_start_record);
         btn_stop_record = (Button) findViewById(R.id.btn_stop_record);
         btn_play = (Button) findViewById(R.id.btn_play);
@@ -107,7 +105,6 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mediaRecorder.stop();
-                getNameFunction();
                 btn_stop.setEnabled(false);
                 btn_stop_record.setEnabled(false);
                 btn_play.setEnabled(true);
@@ -165,6 +162,7 @@ public class RecordActivity extends AppCompatActivity {
     }
 
     public void upload(String filePath) throws AuthFailureError {
+        btn_upload.setText("Uploading...");
         SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -252,36 +250,19 @@ public class RecordActivity extends AppCompatActivity {
             return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
     }
 
-
-    public void getNameFunction() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Save Audio Name As:");
-
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                audioNameMod = input.getText().toString();
-                setFileName();
-            }
-        });
-        builder.setNegativeButton("I prefer a random name", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-    }
-
     private void setFileName() {
+
+        String input = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        Random random = new Random();
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            int index = random.nextInt(input.length());
+            builder.append(input.charAt(index));
+        }
+
         File sdcard = Environment.getExternalStorageDirectory();
         File from = new File(sdcard,audioNameOri+".mp4");
-        File to = new File(sdcard,audioNameMod+".mp4");
+        File to = new File(sdcard,builder.toString()+".mp4");
         from.renameTo(to);
         pathSaveInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + audioNameMod + ".mp4";
     }
