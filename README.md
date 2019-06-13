@@ -3,9 +3,7 @@
 
 # Project Summary
 
-  One Sentence Description
-
-  Project Overview
+  AudioNote lets you transcribe your notes.
 
 # Installation
 
@@ -24,15 +22,12 @@
   ```
   export AWS_ACCESS_KEY_ID=YOUR_ACCESS_ID // Access ID from AWS
   export AWS_SECRET_ACCESS_KEY=YOUR_ACCESS_SECRET // Access secret from AWS
-  export AWS_REGION=us-west-2 // AWS region where you want to run AudioNote
+  export AWS_REGION=us-east-1 // AWS region where you want to run AudioNote
   export AWS_BUCKET_NAME=YOUR_BUCKET_NAME // AWS region where you want to run AudioNote
   export AUDIONOTE_TOKEN=1234 // Token AudioNote will use to authenticate requests. Include it as the 'Token' header in all requests. 
   ```
   3. You can start the server by moving to the 'Backend' directory and running `mvn spring-boot:run`.
-
-# Functionality and Known Issues
-
-# License
+  4. You can run the app in Android Studio.
 
 # Resources
 
