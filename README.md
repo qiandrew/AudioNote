@@ -23,11 +23,15 @@
   export AWS_ACCESS_KEY_ID=YOUR_ACCESS_ID // Access ID from AWS
   export AWS_SECRET_ACCESS_KEY=YOUR_ACCESS_SECRET // Access secret from AWS
   export AWS_REGION=us-east-1 // AWS region where you want to run AudioNote
-  export AWS_BUCKET_NAME=YOUR_BUCKET_NAME // AWS region where you want to run AudioNote
+  export AWS_BUCKET_NAME=YOUR_BUCKET_NAME // AWS bucket where you want audio files to be stored. Must be in same region as above.
   export AUDIONOTE_TOKEN=1234 // Token AudioNote will use to authenticate requests. Include it as the 'Token' header in all requests. 
   ```
   3. You can start the server by moving to the 'Backend' directory and running `mvn spring-boot:run`.
   4. You can run the app in Android Studio.
+  5. You can access the backend hosted on Heroku at https://audionoteucsb.herokuapp.com.
+    * Set "Token" header to 1234
+    * Send a POST request with an audio file under paramater "audio" to https://audionoteucsb.herokuapp.com/transcription
+    * Check the status of a job and view the results by sending a GET request to https://audionoteucsb.herokuapp.com/transcription/YOUR_JOB_ID with the job id you recieved in the previous request.
 
 # Resources
 
