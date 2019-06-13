@@ -222,6 +222,7 @@ public class activity_upload extends AppCompatActivity {
 
     //
     public void upload(String filePath) throws AuthFailureError {
+        btn_upload.setText("Uploading...");
         SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
